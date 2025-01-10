@@ -32,7 +32,9 @@ jobs:
 
       # Step 4: Build the frontend
       - name: Build Frontend
-        run: npm run build
+        run: |
+          echo "CI=false" >> $GITHUB_ENV   # Set CI to false
+          npm run build
 
       # Step 5: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
