@@ -8,7 +8,8 @@ const MetricsComponent = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/cluster/api/metrics")
+      // .get("http://localhost:8000/cluster/api/metrics")
+      .get("https://geo-cluster-analytics-production.up.railway.app/cluster/api/metrics")
       .then((response) => setMetrics(response.data))
       .catch((error) => console.error(error));
   }, []);

@@ -26,7 +26,8 @@ const AddClusterComponent = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:8000/cluster/api/cluster",
+                "https://geo-cluster-analytics-production.up.railway.app/cluster/api/cluster",
+                // "http://localhost:8000/cluster/api/cluster",
                 newCluster
             );
 

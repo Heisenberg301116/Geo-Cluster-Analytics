@@ -28,7 +28,8 @@ const MapComponent = ({ filters }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/cluster/api/data", {
+      // .get("http://localhost:8000/cluster/api/data", {
+      .get("https://geo-cluster-analytics-production.up.railway.app/cluster/api/data", {
         params: {
           limit: limit,
           skip: skip,
