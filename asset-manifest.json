@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Geo-Cluster-Analytics/static/css/main.70111f12.css",
-    "main.js": "/Geo-Cluster-Analytics/static/js/main.48d4733a.js",
+    "main.css": "/Geo-Cluster-Analytics/static/css/main.d360bdaa.css",
+    "main.js": "/Geo-Cluster-Analytics/static/js/main.f244ebae.js",
     "static/js/488.e75445ad.chunk.js": "/Geo-Cluster-Analytics/static/js/488.e75445ad.chunk.js",
     "index.html": "/Geo-Cluster-Analytics/index.html",
-    "main.70111f12.css.map": "/Geo-Cluster-Analytics/static/css/main.70111f12.css.map",
-    "main.48d4733a.js.map": "/Geo-Cluster-Analytics/static/js/main.48d4733a.js.map",
+    "main.d360bdaa.css.map": "/Geo-Cluster-Analytics/static/css/main.d360bdaa.css.map",
+    "main.f244ebae.js.map": "/Geo-Cluster-Analytics/static/js/main.f244ebae.js.map",
     "488.e75445ad.chunk.js.map": "/Geo-Cluster-Analytics/static/js/488.e75445ad.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.70111f12.css",
-    "static/js/main.48d4733a.js"
+    "static/css/main.d360bdaa.css",
+    "static/js/main.f244ebae.js"
   ]
 }
