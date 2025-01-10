@@ -4,6 +4,7 @@ import "leaflet/dist/leaflet.css";
 import axios from "axios";
 import L from "leaflet";
 import { DataContext } from "../context/DataProvider";
+import { deleteCluster } from "../controllers/delete_cluster";
 
 // Fix for marker icon
 import markerIcon from "leaflet/dist/images/marker-icon.png";
@@ -26,15 +27,27 @@ const MapComponent = ({ filters }) => {
 
   const limit = 100;
 
+  // Function to handle cluster deletion
+  const handleDelete = async (id) => {
+    try {
+      const response = await deleteCluster(id);
+      // Remove the deleted cluster from the UI by filtering out the deleted cluster
+      setClusters(clusters.filter((cluster) => cluster._id !== id));
+      console.log(response.message); // Optional: show success message
+    } catch (error) {
+      console.error("Failed to delete cluster:", error);
+    }
+  };
+
   useEffect(() => {
     axios
-      // .get("http://localhost:8000/cluster/api/data", {
-      .get("https://geo-cluster-analytics-production.up.railway.app/cluster/api/data", {
+      // .get("http://localhost:8000/cluster/get_clusters", {
+      .get("https://geo-cluster-analytics-production.up.railway.app/cluster/get_clusters", {
         params: {
           limit: limit,
           skip: skip,
           field: field,
-          sorted: sorted
+          sorted: sorted,
         }
       })
       .then((response) => {
@@ -55,7 +68,8 @@ const MapComponent = ({ filters }) => {
 
   return (
     <div className="map-container bg-gray-50 border border-gray-300 rounded-lg shadow-lg p-4 pl-8 pr-8">
-      <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6 underline">
         Cluster Map
       </h2>
 
@@ -93,6 +107,16 @@ const MapComponent = ({ filters }) => {
                   Location: ({cluster.location.latitude},{" "}
                   {cluster.location.longitude})
                 </p>
+
+                {/* Delete Button */}
+                <div className="flex justify-center mt-4">
+                  <button
+                    className="bg-red-500 text-white hover:bg-red-700 px-4 py-2 rounded-full"
+                    onClick={() => handleDelete(cluster._id)} // Pass the cluster _id to delete
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </Popup>
           </Marker>
@@ -102,7 +126,6 @@ const MapComponent = ({ filters }) => {
         Hover over a marker to see details.
       </p>
     </div>
-
   );
 };
 

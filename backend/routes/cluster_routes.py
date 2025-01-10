@@ -18,8 +18,7 @@ def objectid_to_str(obj):
 
 
 # Endpoint to fetch all clusters
-@router.get("/api/data", response_model=List[dict])
-@router.get("/api/data", response_model=List[dict])
+@router.get("/get_clusters", response_model=List[dict])
 async def get_data(
     limit: int = Query(10, description="Number of documents to fetch"),
     skip: int = Query(0, description="Number of documents to skip"),
@@ -56,7 +55,7 @@ async def get_data(
     
 
 # Endpoint to calculate metrics
-@router.get("/api/metrics")
+@router.get("/metrics")
 async def get_metrics():
     db_client = Fetch_Database_Object() 
     # print("============================> inside api/metrics")
@@ -79,7 +78,7 @@ async def get_metrics():
 
 
 # Endpoint to add a new cluster
-@router.post("/api/cluster")
+@router.post("/add")
 async def add_cluster(cluster: Cluster):
     db_client = Fetch_Database_Object()
     try:
@@ -109,5 +108,28 @@ async def add_cluster(cluster: Cluster):
 
     
     except Exception as e:
-        print("===============> e = ",e)
+        raise HTTPException(status_code=500, detail=str(e))
+    
+    
+    
+# Endpoint to delete a cluster by ID
+@router.delete("/delete/{docid}")
+async def delete_cluster(docid: str):
+    db_client = Fetch_Database_Object()
+    try:
+        # Validate if the docid is a valid ObjectId
+        if not ObjectId.is_valid(docid):
+            raise HTTPException(status_code=400, detail="Invalid ObjectId format")
+        
+        # Attempt to delete the cluster by its ObjectId
+        result = await db_client["clusters"].delete_one({"_id": ObjectId(docid)})
+
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Cluster not found")
+
+        return {
+            "status_code": 200,
+            "message": "Cluster deleted successfully"
+        }
+    except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
