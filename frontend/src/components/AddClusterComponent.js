@@ -2,6 +2,8 @@ import { DataContext } from "../context/DataProvider";
 import React, { useState, useContext } from "react";
 import axios from "axios";
 
+const serverUrl = process.env.REACT_APP_SERVER_URL;
+
 const AddClusterComponent = () => {
     const [name, setName] = useState("");
     const [latitude, setLatitude] = useState("");
@@ -11,9 +13,10 @@ const AddClusterComponent = () => {
     const [leads, setLeads] = useState("");
     const [message, setMessage] = useState("");
 
-    const { setClusters } = useContext(DataContext);
+    const { setClusters, setalert, setIsLoading } = useContext(DataContext);
 
     const handleSubmit = async (event) => {
+        setIsLoading(true)
         event.preventDefault();
 
         const newCluster = {
@@ -26,18 +29,18 @@ const AddClusterComponent = () => {
 
         try {
             const response = await axios.post(
-                "https://geo-cluster-analytics-production.up.railway.app/cluster/add",
-                // "http://localhost:8000/cluster/add",
+                `${serverUrl}/cluster/add`,
                 newCluster
             );
 
             if (response.data.status_code === 400) {
-                console.log("================>response.data.status_code = ", response.data.status_code)
+                // console.log("================>response.data.status_code = ", response.data.status_code)
                 throw new Error(response.data.detail);
             }
 
             setClusters((prevClusters) => [...prevClusters, response.data.cluster]);
-            setMessage("Cluster added successfully!");
+            setMessage("Cluster added successfully !");
+            setalert({ colour: '#3ad644', message: 'Cluster added successfully !', fontcolor: 'black' })
 
             setName("");
             setLatitude("");
@@ -45,10 +48,13 @@ const AddClusterComponent = () => {
             setUsers("");
             setProjects("");
             setLeads("");
+            setIsLoading(false)
         }
         catch (error) {
-            console.error("Error adding cluster", error);
+            // console.error("Error adding cluster", error.response.data.detail);
+            setIsLoading(false)
             setMessage(`Error: ${error.response?.data?.detail || error.message}`);
+            setalert({ colour: '#f70a0e', message: `Error: ${error.response.data.detail}`, fontcolor: 'white' })
         }
     };
 

@@ -6,6 +6,11 @@ from database.connection import Fetch_Database_Object
 from bson import ObjectId
 router = APIRouter()
 
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+
 def objectid_to_str(obj):
     """Recursively convert ObjectId to string for all fields"""
     if isinstance(obj, ObjectId):
@@ -81,34 +86,33 @@ async def get_metrics():
 @router.post("/add")
 async def add_cluster(cluster: Cluster):
     db_client = Fetch_Database_Object()
-    try:
-        # Check if the cluster name already exists
-        existing_cluster = await db_client["clusters"].find_one({"name": cluster.name})
-        if existing_cluster:
-            raise HTTPException(status_code=400, detail="Cluster name is already registered, choose something else!")
+    
+    # Check if the cluster name already exists
+    existing_cluster = await db_client["clusters"].find_one({"name": cluster.name})
+    if existing_cluster:            
+        raise HTTPException(status_code=400, detail="Cluster name is already registered !")               
         
-        # Convert Pydantic model to dictionary
-        cluster_data = cluster.dict()
+    # Convert Pydantic model to dictionary
+    cluster_data = cluster.dict()
 
-        # Insert the new cluster data into the database
-        result = await db_client["clusters"].insert_one(cluster_data)
-        
-        # Retrieve the inserted document using the inserted_id
-        new_cluster = await db_client["clusters"].find_one({"_id": result.inserted_id})
-        
-        # Convert the ObjectId fields to strings
-        new_cluster = objectid_to_str(new_cluster)
+    # Insert the new cluster data into the database
+    result = await db_client["clusters"].insert_one(cluster_data)
+    
+    # Retrieve the inserted document using the inserted_id
+    new_cluster = await db_client["clusters"].find_one({"_id": result.inserted_id})
+    
+    # Convert the ObjectId fields to strings
+    new_cluster = objectid_to_str(new_cluster)
 
-        # Return the successful response with the cluster data
-        return {
-            "status_code": 200,
-            "message": "Cluster added successfully",
-            "cluster": new_cluster
-        }
+    # Return the successful response with the cluster data
+    return {
+        "status_code": 200,
+        "message": "Cluster added successfully",
+        "cluster": new_cluster
+    }
 
     
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    
     
     
     
@@ -116,20 +120,17 @@ async def add_cluster(cluster: Cluster):
 @router.delete("/delete/{docid}")
 async def delete_cluster(docid: str):
     db_client = Fetch_Database_Object()
-    try:
-        # Validate if the docid is a valid ObjectId
-        if not ObjectId.is_valid(docid):
-            raise HTTPException(status_code=400, detail="Invalid ObjectId format")
-        
-        # Attempt to delete the cluster by its ObjectId
-        result = await db_client["clusters"].delete_one({"_id": ObjectId(docid)})
+    # Validate if the docid is a valid ObjectId
+    if not ObjectId.is_valid(docid):
+        raise HTTPException(status_code=400, detail="Invalid ObjectId format")
+            
+    # Attempt to delete the cluster by its ObjectId
+    result = await db_client["clusters"].delete_one({"_id": ObjectId(docid)})
 
-        if result.deleted_count == 0:
-            raise HTTPException(status_code=404, detail="Cluster not found")
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Cluster not found")
 
-        return {
-            "status_code": 200,
-            "message": "Cluster deleted successfully"
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    return {
+        "status_code": 200,
+        "message": "Cluster deleted successfully"
+    }

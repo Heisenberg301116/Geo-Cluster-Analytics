@@ -22,27 +22,37 @@ const DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
+const serverUrl = process.env.REACT_APP_SERVER_URL;
+
 const MapComponent = ({ filters }) => {
-  const { clusters, setClusters, skip, setSkip, field, setField, sorted, setSorted } = useContext(DataContext);
+  const { clusters, setClusters, skip, setSkip, field, setField, sorted, setSorted, setalert, setIsLoading } = useContext(DataContext);
 
   const limit = 100;
 
   // Function to handle cluster deletion
   const handleDelete = async (id) => {
+    setIsLoading(true)
     try {
       const response = await deleteCluster(id);
       // Remove the deleted cluster from the UI by filtering out the deleted cluster
       setClusters(clusters.filter((cluster) => cluster._id !== id));
-      console.log(response.message); // Optional: show success message
-    } catch (error) {
-      console.error("Failed to delete cluster:", error);
+
+      setalert({ colour: '#3ad644', message: 'Cluster deleted successfully !', fontcolor: 'black' })
+      setIsLoading(false)
+    }
+    catch (error) {
+      // console.error("Failed to delete cluster:", error);
+
+      setalert({ colour: '#f70a0e', message: `Failed to delete cluster: ${error}`, fontcolor: 'black' })
+      setIsLoading(false)
     }
   };
 
   useEffect(() => {
+    setIsLoading(true)
+
     axios
-      // .get("http://localhost:8000/cluster/get_clusters", {
-      .get("https://geo-cluster-analytics-production.up.railway.app/cluster/get_clusters", {
+      .get(`${serverUrl}/cluster/get_clusters`, {
         params: {
           limit: limit,
           skip: skip,
@@ -62,8 +72,10 @@ const MapComponent = ({ filters }) => {
         });
 
         setClusters(filteredClusters);
+        setIsLoading(false)
       })
       .catch((error) => console.error(error));
+
   }, [filters, skip, field, sorted]);
 
   return (

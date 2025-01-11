@@ -2,17 +2,21 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { DataContext } from "../context/DataProvider";
 
+const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 const MetricsComponent = () => {
   const [metrics, setMetrics] = useState({});
-  const { clusters } = useContext(DataContext);
+  const { clusters, setIsLoading } = useContext(DataContext);
 
   useEffect(() => {
+    // setIsLoading(true)
+
     axios
-      // .get("http://localhost:8000/cluster/metrics")
-      .get("https://geo-cluster-analytics-production.up.railway.app/cluster/metrics")
+      .get(`${serverUrl}/cluster/metrics`)
       .then((response) => setMetrics(response.data))
       .catch((error) => console.error(error));
+
+    // setIsLoading(false)
   }, [clusters]);
 
   return (

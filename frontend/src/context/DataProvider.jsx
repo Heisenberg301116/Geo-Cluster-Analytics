@@ -7,10 +7,15 @@ const DataProvider = ({ children }) => {
     const [skip, setSkip] = useState(0);
     const [field, setField] = useState("name");
     const [sorted, setSorted] = useState("asc");
+    const [alert, setalert] = useState({
+        colour: '',      // red: #f71505, green: #1cba34
+        message: '',
+    });
+    const [isLoading, setIsLoading] = useState(false)
 
     return (
         <>
-            <DataContext.Provider value={{ clusters, setClusters, skip, setSkip, field, setField, sorted, setSorted }}>
+            <DataContext.Provider value={{ clusters, setClusters, skip, setSkip, field, setField, sorted, setSorted, alert, setalert, isLoading, setIsLoading }}>
                 {children}
             </DataContext.Provider>
         </>

@@ -3,31 +3,44 @@ import { DataContext } from "../context/DataProvider";
 import { deleteCluster } from "../controllers/delete_cluster";
 
 const TableComponent = () => {
-  const { clusters, setClusters, skip, setSkip, field, setField, sorted, setSorted } = useContext(DataContext);
+  const { clusters, setClusters, skip, setSkip, field, setField, sorted, setSorted, setalert, setIsLoading } = useContext(DataContext);
 
   // Function to handle sorting
   const handleSort = (key) => {
+    let new_sorted_order = 'ascending'
+
     if (key === field) {
       if (sorted === "asc") {
         setSorted("desc");
-      } else {
+        new_sorted_order = "descending"
+      }
+      else {
         setSorted("asc");
       }
-    } else {
+    }
+    else {
       setField(key);
       setSorted("asc");
     }
+
+    setalert({ colour: '#3ad644', message: `Sorted by '${key}' in ${new_sorted_order} !`, fontcolor: 'black' })
   };
 
   // Function to handle cluster deletion
   const handleDelete = async (id) => {
+    setIsLoading(true)
     try {
       const response = await deleteCluster(id);
       // Remove the deleted cluster from the UI by filtering out the deleted cluster
       setClusters(clusters.filter(cluster => cluster._id !== id));
-      console.log(response.message); // Optional: show success message
-    } catch (error) {
+      setalert({ colour: '#3ad644', message: 'Cluster deleted successfully !', fontcolor: 'black' })
+      setIsLoading(false)
+      // console.log(response.message); // Optional: show success message
+    }
+    catch (error) {
+      setIsLoading(false)
       console.error("Failed to delete cluster:", error);
+      setalert({ colour: '#f70a0e', message: `Failed to delete cluster: ${error}`, fontcolor: 'black' })
     }
   };
 
