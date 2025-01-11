@@ -10,7 +10,8 @@
      
 2. [Setting Up the Project on Windows Local System](#2-setting-up-the-project-on-windows-local-system)
    - [Setting up the MongoDB Atlas Database](#21-setting-up-the-mongodb-atlas-database)
-   - [Setting up the Virtual Environment](#22-setting-up-the-virtual-environment)
+   - [Setting up the Backend Application](#22-setting-up-the-backend-application)
+   - [Setting up the Frontend Application](#23-setting-up-the-frontend-application)
      
 3. [Running the Project on Windows Local System](#3-running-the-project-on-windows-local-system)
 
