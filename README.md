@@ -72,8 +72,8 @@ To build a frontend application powered by React.js supporting the following ope
 ---
 
 ### 1.5) Additional Functionalities
-#### a) Allow user to delete the clusters
-#### b) Introduced Pagination for fetching clusters
+      - a) Allow user to delete the clusters
+      - b) Introduced Pagination for fetching clusters
 
 ---
 
@@ -122,7 +122,7 @@ Watch the demo video [here](https://drive.google.com/file/d/1-rRBpp1eNfo-M4i976D
 
 ## 2) Setting Up the Project on Windows Local System
 
-#### 2.1) Setting up the MongoDB Atlas Database
+### 2.1) Setting up the MongoDB Atlas Database
 1. Clone this repository to your local system.
 2. Create a cluster in MongoDB Atlas and note the username, password, and connection string.
 3. Create a `.env` file in the 'backend/' folder of the root directory of this cloned project, with the following:
@@ -133,6 +133,7 @@ Watch the demo video [here](https://drive.google.com/file/d/1-rRBpp1eNfo-M4i976D
 ### 2.2) Setting up the Backend Application
 1. Add the below variable in the `.env` file in the 'backend/' folder:
       - CLIENT_URL=`http://localhost:3000`
+   
    Note that don't include trailing '/' at the end of URL !
 2. Open CMD and navigate to the 'backend/' folder of root project directory.
 3. Install the required packages with: `pip install -r requirements.txt`
@@ -141,6 +142,7 @@ Watch the demo video [here](https://drive.google.com/file/d/1-rRBpp1eNfo-M4i976D
 ### 2.3) Setting up the Frontend Application
 1. Create a `.env` file in the 'frontend/' folder of the root directory of this cloned project, with the following:
       - REACT_APP_SERVER_URL=`http://localhost:8000`
+   
    Note that don't include trailing '/' at the end of URL !
 2. Open CMD and navigate to the 'frontend/' folder of root project directory.
 3. Install the required packages with: `npm install`
