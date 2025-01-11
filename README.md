@@ -128,19 +128,21 @@ Watch the demo video [here](https://drive.google.com/file/d/1K0dwpWNzji4uIHCnEs1
 3. Create a `.env` file in the 'backend/' folder of the root directory of this cloned project, with the following:
       - DB_USERNAME=`Your username`
       - DB_PASSWORD=`Your password`
-5. Set the `url` variable in './backend/database/connection.py' to the connection string of your cluster.
+4. Set the `url` variable in './backend/database/connection.py' to the connection string of your cluster.
 
 ### 2.2) Setting up the Backend Application
-1. Open CMD and navigate to the 'backend/' folder of root project directory.
-2. Create a virtual environment by running: `python -m venv myvenv`
-3. Activate the virtual environment with: `myvenv\Scripts\activate`
-4. Install the required packages with: `pip install -r requirements.txt`
-5. Close CMD.
+1. Add the below variable in the `.env` file in the 'backend/' folder:
+      - CLIENT_URL=`http://localhost:3000`
+2. Open CMD and navigate to the 'backend/' folder of root project directory.
+3. Install the required packages with: `pip install -r requirements.txt`
+4. Close CMD.
 
 ### 2.3) Setting up the Frontend Application
-1. Open CMD and navigate to the 'frontend/' folder of root project directory.
-2. Install the required packages with: `npm install`
-5. Close CMD.
+1. Create a `.env` file in the 'frontend/' folder of the root directory of this cloned project, with the following:
+      - REACT_APP_SERVER_URL=`http://localhost:8000`
+2. Open CMD and navigate to the 'frontend/' folder of root project directory.
+3. Install the required packages with: `npm install`
+4. Close CMD.
 
 ---
 ---
