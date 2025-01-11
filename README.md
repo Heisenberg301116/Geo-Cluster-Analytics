@@ -29,7 +29,7 @@ This project is a web-based analytics dashboard designed to display an interacti
 - **Backend**: Python FastAPI
 - **Database**: MongoDB
 - **Visualization Library**: Leaflet.js
-- **CI/CD**: GitHub Actions (for automating build and deployment for frontend to GitHub Pages)
+- **CI/CD**: GitHub Actions (for automating build and deployment for frontend React App to GitHub Pages)
   
 ---
 
@@ -73,7 +73,7 @@ To build a frontend application powered by React.js supporting the following ope
 
 ### 1.5) Additional Functionalities
 #### a) Allow user to delete the clusters
-#### b) Allow user to create new clusters
+#### b) Introduced Pagination for fetching clusters
 
 ---
 
@@ -133,6 +133,7 @@ Watch the demo video [here](https://drive.google.com/file/d/1-rRBpp1eNfo-M4i976D
 ### 2.2) Setting up the Backend Application
 1. Add the below variable in the `.env` file in the 'backend/' folder:
       - CLIENT_URL=`http://localhost:3000`
+   Note that don't include trailing '/' at the end of URL !
 2. Open CMD and navigate to the 'backend/' folder of root project directory.
 3. Install the required packages with: `pip install -r requirements.txt`
 4. Close CMD.
@@ -140,6 +141,7 @@ Watch the demo video [here](https://drive.google.com/file/d/1-rRBpp1eNfo-M4i976D
 ### 2.3) Setting up the Frontend Application
 1. Create a `.env` file in the 'frontend/' folder of the root directory of this cloned project, with the following:
       - REACT_APP_SERVER_URL=`http://localhost:8000`
+   Note that don't include trailing '/' at the end of URL !
 2. Open CMD and navigate to the 'frontend/' folder of root project directory.
 3. Install the required packages with: `npm install`
 4. Close CMD.
@@ -149,5 +151,5 @@ Watch the demo video [here](https://drive.google.com/file/d/1-rRBpp1eNfo-M4i976D
 
 ## 3) Running the Project on Windows Local System
 
-1. Open CMD in the 'backend/' folder of project and run `uvicorn main:app --reload`. This will run the backend application at `http://localhost:8000/`.
-2. Open CMD in the 'frontend/' folder of project and run `npm start`. This will run the frontend application at `http://localhost:3000/`.
+1. Open CMD in the 'backend/' folder of project and run `uvicorn main:app --reload`. This will run the backend application at `http://localhost:8000`.
+2. Open CMD in the 'frontend/' folder of project and run `npm start`. This will run the frontend application at `http://localhost:3000`.
