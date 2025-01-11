@@ -29,7 +29,7 @@ This project is a web-based analytics dashboard designed to display an interacti
 - **Backend**: Python FastAPI
 - **Database**: MongoDB
 - **Visualization Library**: Leaflet.js
-- **CI/CD**: GitHub Actions
+- **CI/CD**: GitHub Actions (for automating build and deployment for frontend to GitHub Pages)
   
 ---
 
@@ -114,7 +114,7 @@ The response will indicate whether the deletion was successful. If the cluster i
 ---
 
 ### 1.7) Demo Video
-Watch the demo video [here](https://drive.google.com/file/d/1K0dwpWNzji4uIHCnEs1O2BrbtmY8ufdq/view?usp=drive_link).
+Watch the demo video [here](https://drive.google.com/file/d/1-rRBpp1eNfo-M4i976DLhq5Mj570HbaU/view?usp=sharing).
       
 ---
 ---
